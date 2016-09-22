@@ -17,11 +17,6 @@ class ViewController: UIViewController {
         let controller: UIViewController
         controller = DrawerViewController()
         
-        for child in childViewControllers {
-            child.willMove(toParentViewController: nil)
-            child.view.removeFromSuperview()
-            child.removeFromParentViewController()
-        }
         
         // Embed the new controller.
         addChildViewController(controller)
@@ -30,12 +25,12 @@ class ViewController: UIViewController {
         controller.view.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(controller.view)
         
-        controller.view.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = false
-        controller.view.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = false
-        controller.view.topAnchor.constraint(equalTo: view.topAnchor).isActive = false
-        controller.view.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = false
+        controller.view.leftAnchor.constraintEqualToAnchor(view.leftAnchor).active = false
+        controller.view.rightAnchor.constraintEqualToAnchor(view.rightAnchor).active = false
+        controller.view.topAnchor.constraintEqualToAnchor(view.topAnchor).active = false
+        controller.view.bottomAnchor.constraintEqualToAnchor(view.bottomAnchor).active = false
         
-        controller.didMove(toParentViewController: self)
+        controller.didMoveToParentViewController(self)
 
     }
 

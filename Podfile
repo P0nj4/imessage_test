@@ -5,8 +5,7 @@ target 'Extension' do
   use_frameworks!
   pod 'jot'
   pod 'Neon'
-  pod 'FontAwesomeKit', '~> 2.2.0'
-  pod 'FontAwesome.swift'
+  pod 'Google-Material-Design-Icons-Swift', :git => 'https://github.com/P0nj4/Google-Material-Design-Icons-Swift', :branch => 'swift_2.3'
 end
 
 target 'WriteAndSendOnMessage' do
@@ -14,8 +13,7 @@ target 'WriteAndSendOnMessage' do
   use_frameworks!
   pod 'jot'
   pod 'Neon'
-  pod 'FontAwesomeKit', '~> 2.2.0'
-  pod 'FontAwesome.swift'
+  pod 'Google-Material-Design-Icons-Swift', :git => 'https://github.com/P0nj4/Google-Material-Design-Icons-Swift', :branch => 'swift_2.3'
 end
 
 #post_install do |installer|

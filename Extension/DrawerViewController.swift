@@ -8,8 +8,8 @@
 
 import UIKit
 import jot
-import FontAwesomeKit
 import Neon
+import Google_Material_Design_Icons_Swift
 
 class DrawerViewController: UIViewController {
     
@@ -21,82 +21,49 @@ class DrawerViewController: UIViewController {
     var isWritingModeEnabled: Bool = false {
         didSet {
             if isWritingModeEnabled {
-                self.myDrawableSpace.state = JotViewState.editingText
+                self.myDrawableSpace.state = JotViewState.EditingText
             } else {
-                self.myDrawableSpace.state = JotViewState.drawing
+                self.myDrawableSpace.state = JotViewState.Drawing
             }
         }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = UIColor.blue
+        self.view.backgroundColor = UIColor.blueColor()
         
         self.addChildViewController(self.myDrawableSpace)
         self.view.addSubview(self.myDrawableSpace.view)
-        self.myDrawableSpace.didMove(toParentViewController: self)
-        self.myDrawableSpace.view.backgroundColor = UIColor.clear
-        self.myDrawableSpace.state = JotViewState.drawing
+        self.myDrawableSpace.didMoveToParentViewController(self)
+        self.myDrawableSpace.view.backgroundColor = UIColor.yellowColor()
+        self.myDrawableSpace.state = JotViewState.Drawing
         self.myDrawableSpace.renderImage()
+
+
+        let buttonName = self.changeMode
+        buttonName.frame = CGRect(x: 0, y: 0, width: 40, height: 40)
+        buttonName.setGMDIcon(GMDType.GMDPublic, forState: .Normal)
+        buttonName.setTitleColor(UIColor.redColor(), forState: .Normal)
+        self.view.addSubview(buttonName)
         
-        
-        let changeModeImage = UIImage(stackedIcons: [FAKFontAwesome.pencilIcon(withSize: 35)], imageSize: CGSize(width: 60, height: 60))
+        //let changeModeImage = UIImage(stackedIcons: [FAKFontAwesome.pencilIcon(withSize: 35)], imageSize: CGSize(width: 60, height: 60))
 //        self.changeMode.setImage(changeModeImage, for: .normal)
-        self.view.addSubview(self.changeMode)
-        self.changeMode.addTarget(self, action: #selector(changeModePressed), for: .touchUpInside)
+        //self.view.addSubview(self.changeMode)
+        //self.changeMode.addTarget(self, action: #selector(changeModePressed), for: .touchUpInside)
         
 //        let pickBackgroundImage = UIImage(stackedIcons: [FAKFontAwesome.imageIcon(withSize: 35)], imageSize: CGSize(width: 60, height: 60))
 //        self.pickBackground.setImage(pickBackgroundImage, for: .normal)
-        self.view.addSubview(self.pickBackground)
-        self.pickBackground.addTarget(self, action: #selector(pickAbackgroundPressed), for: .touchUpInside)
+        //self.view.addSubview(self.pickBackground)
+        //self.pickBackground.addTarget(self, action: #selector(pickAbackgroundPressed), for: .touchUpInside)
         
-        self.view.addSubview(self.background)
+        //self.view.addSubview(self.background)
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         self.myDrawableSpace.view.frame = self.view.bounds
-        self.pickBackground.anchorInCorner(.bottomLeft, xPad: 10, yPad: 10, width: 60, height: 60)
-        self.changeMode.anchorInCorner(.bottomRight, xPad: 10, yPad: 10, width: 60, height: 60)
-        self.background.fillSuperview()
-    }
-    
-    //MARK - Actions
-    
-    func changeModePressed() {
-        
-//        
-//        var size = CGSize(width: 300, height: 300)
-//        UIGraphicsBeginImageContext(size)
-//        
-//        let areaSize = CGRect(x: 0, y: 0, width: size.width, height: size.height)
-//        bottomImage!.drawInRect(areaSize)
-//        
-//        topImage!.drawInRect(areaSize, blendMode: kCGBlendModeNormal, alpha: 0.8)
-//        
-//        var newImage:UIImage = UIGraphicsGetImageFromCurrentImageContext()
-//        UIGraphicsEndImageContext()
-//        
-        
-        self.isWritingModeEnabled = !self.isWritingModeEnabled
-    }
-    
-    func pickAbackgroundPressed() {
-        let imagePicker = UIImagePickerController()
-        imagePicker.delegate = self
-        imagePicker.allowsEditing = false
-        imagePicker.sourceType = .photoLibrary
-        
-        present(imagePicker, animated: true, completion: nil)
-    }
-}
-
-extension DrawerViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-    private func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
-        if let pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
-            self.background.contentMode = .scaleAspectFit
-            self.background.image = pickedImage
-        }
-        dismiss(animated: true, completion: nil)
+        //self.pickBackground.anchorInCorner(.bottomLeft, xPad: 10, yPad: 10, width: 60, height: 60)
+        self.changeMode.anchorInCorner(.BottomRight, xPad: 10, yPad: 10, width: 40, height: 40)
+        //self.background.fillSuperview()
     }
 }

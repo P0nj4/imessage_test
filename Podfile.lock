@@ -1,0 +1,31 @@
+PODS:
+  - Google-Material-Design-Icons-Swift (1.0.2)
+  - jot (0.1.5):
+    - Masonry (~> 0.6.1)
+  - Masonry (0.6.4)
+  - Neon (0.2.0)
+
+DEPENDENCIES:
+  - Google-Material-Design-Icons-Swift (from `https://github.com/P0nj4/Google-Material-Design-Icons-Swift`, branch `swift_2.3`)
+  - jot
+  - Neon
+
+EXTERNAL SOURCES:
+  Google-Material-Design-Icons-Swift:
+    :branch: swift_2.3
+    :git: https://github.com/P0nj4/Google-Material-Design-Icons-Swift
+
+CHECKOUT OPTIONS:
+  Google-Material-Design-Icons-Swift:
+    :commit: 3430fcb4be3bdfac5bf85e20ba158e520bc3609c
+    :git: https://github.com/P0nj4/Google-Material-Design-Icons-Swift
+
+SPEC CHECKSUMS:
+  Google-Material-Design-Icons-Swift: cc549795df7806d15387e0a7d39143c42e230845
+  jot: 0f5dc333defa6ad805d01adc3834b201c22510a7
+  Masonry: 281802d04d787ea2973179ee8bcb50500579ede2
+  Neon: c7de6b6186c31870a0cacab6e018d0641bd12dca
+
+PODFILE CHECKSUM: 48d281275f942f99771a210324f8db3c13df6896
+
+COCOAPODS: 1.1.0.beta.1
