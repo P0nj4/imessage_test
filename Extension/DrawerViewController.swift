@@ -34,37 +34,36 @@ class DrawerViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = UIColor.blueColor()
+        
+        self.view.backgroundColor = UIColor(white: 0, alpha: 0.1)
         
         self.addChildViewController(self.myDrawableSpace)
         self.view.addSubview(self.myDrawableSpace.view)
         self.myDrawableSpace.didMoveToParentViewController(self)
-        self.myDrawableSpace.view.backgroundColor = UIColor.yellowColor()
+        self.myDrawableSpace.view.backgroundColor = UIColor.whiteColor()
+        self.myDrawableSpace.textColor = UIColor.blackColor()
         self.myDrawableSpace.state = JotViewState.Drawing
-        self.myDrawableSpace.renderImage()
-
-
-        let buttonName = self.changeMode
-        buttonName.frame = CGRect(x: 0, y: 0, width: 40, height: 40)
-        buttonName.setGMDIcon(GMDType.GMDTextFormat, forState: .Normal)
-        buttonName.setTitleColor(UIColor.redColor(), forState: .Normal)
-        buttonName.addTarget(self, action: #selector(DrawerViewController.changeModePressed), forControlEvents: .TouchUpInside)
-        self.view.addSubview(buttonName)
-
+        
+        self.changeMode.frame = CGRect(x: 0, y: 0, width: 40, height: 40)
+        self.changeMode.titleLabel?.font = UIFont.systemFontOfSize(40)
+        self.changeMode.setGMDIcon(GMDType.GMDTextFormat, forState: .Normal)
+        self.changeMode.setTitleColor(UIColor.blackColor(), forState: .Normal)
+        self.changeMode.addTarget(self, action: #selector(DrawerViewController.changeModePressed), forControlEvents: .TouchUpInside)
+        self.view.addSubview(self.changeMode)
 
         self.sendmessage.frame = CGRect(x: 0, y: 0, width: 40, height: 40)
+        self.sendmessage.titleLabel?.font = UIFont.systemFontOfSize(30)
         self.sendmessage.setGMDIcon(GMDType.GMDSend, forState: .Normal)
-        self.sendmessage.setTitleColor(UIColor.redColor(), forState: .Normal)
+        self.sendmessage.setTitleColor(UIColor.blackColor(), forState: .Normal)
         self.sendmessage.addTarget(self, action: #selector(DrawerViewController.sendMessagePressed), forControlEvents: .TouchUpInside)
         self.view.addSubview(self.sendmessage)
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        self.myDrawableSpace.view.frame = self.view.bounds
-        self.myDrawableSpace.view.setNeedsDisplay()
-        self.changeMode.anchorInCorner(.BottomRight, xPad: 10, yPad: 40, width: 40, height: 40)
-        self.sendmessage.align(.AboveCentered, relativeTo: self.changeMode, padding: 10, width: 40, height: 40)
+        self.myDrawableSpace.view.anchorInCenter(width: self.view.width, height: self.view.width)
+        self.sendmessage.anchorInCorner(.BottomRight, xPad: 10, yPad: 40, width: 40, height: 40)
+        self.changeMode.align(.ToTheLeftCentered, relativeTo: self.sendmessage, padding: 10, width: self.changeMode.width, height: self.changeMode.height)
     }
 
     func changeModePressed() {
@@ -77,6 +76,20 @@ class DrawerViewController: UIViewController {
     }
 
     func sendMessagePressed() {
-        self.delegate?.composeMessage(self.myDrawableSpace.renderImage())
+        
+        let image = self.myDrawableSpace.renderImage()
+        if let data = UIImagePNGRepresentation(image) {
+            if let filename = getDocumentsDirectory().URLByAppendingPathComponent("\(NSDate.timeIntervalSinceReferenceDate()).png") {
+                data.writeToURL(filename, atomically: true)
+            }
+        }
+        
+        self.delegate?.composeMessage(image)
+    }
+    
+    func getDocumentsDirectory() -> NSURL {
+        let paths = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains:.UserDomainMask)
+        let documentsDirectory = paths[0]
+        return documentsDirectory
     }
 }

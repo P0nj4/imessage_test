@@ -18,6 +18,7 @@
 		440A16181D940DA600A572A5 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 440A16161D940DA600A572A5 /* MainInterface.storyboard */; };
 		440A161A1D940DA600A572A5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 440A16191D940DA600A572A5 /* Assets.xcassets */; };
 		440A161E1D940DA600A572A5 /* Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 440A160F1D940DA500A572A5 /* Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		4451B3A11D9577470098F95B /* MyDrawsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4451B3A01D9577470098F95B /* MyDrawsViewController.swift */; };
 		447265631D9412C2005BFF1F /* DrawerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447265621D9412C2005BFF1F /* DrawerViewController.swift */; };
 		447265641D941442005BFF1F /* DrawerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447265621D9412C2005BFF1F /* DrawerViewController.swift */; };
 		741BDA4FC720D6AAD53BA62F /* Pods_Extension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4506033D0A7181B8A9900069 /* Pods_Extension.framework */; };
@@ -62,6 +63,7 @@
 		440A16171D940DA600A572A5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
 		440A16191D940DA600A572A5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		440A161B1D940DA600A572A5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4451B3A01D9577470098F95B /* MyDrawsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyDrawsViewController.swift; sourceTree = "<group>"; };
 		447265621D9412C2005BFF1F /* DrawerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DrawerViewController.swift; sourceTree = "<group>"; };
 		4506033D0A7181B8A9900069 /* Pods_Extension.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Extension.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6B8FD23A2DEF7A2CF1DAD154 /* Pods-WriteAndSendOnMessage.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WriteAndSendOnMessage.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WriteAndSendOnMessage/Pods-WriteAndSendOnMessage.debug.xcconfig"; sourceTree = "<group>"; };
@@ -142,6 +144,7 @@
 				440A16191D940DA600A572A5 /* Assets.xcassets */,
 				440A161B1D940DA600A572A5 /* Info.plist */,
 				447265621D9412C2005BFF1F /* DrawerViewController.swift */,
+				4451B3A01D9577470098F95B /* MyDrawsViewController.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -355,6 +358,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4451B3A11D9577470098F95B /* MyDrawsViewController.swift in Sources */,
 				440A16151D940DA600A572A5 /* MessagesViewController.swift in Sources */,
 				447265631D9412C2005BFF1F /* DrawerViewController.swift in Sources */,
 			);

@@ -15,9 +15,14 @@ class MessagesViewController: MSMessagesAppViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
      
-        let controller: DrawerViewController
-        controller = DrawerViewController()
-        controller.delegate = self
+//        let controller: DrawerViewController
+//        controller = DrawerViewController()
+//        controller.delegate = self
+        
+        let controller: MyDrawsViewController
+        controller = MyDrawsViewController()
+        
+
 
         for child in childViewControllers {
             child.willMoveToParentViewController(nil)
@@ -112,5 +117,7 @@ extension MessagesViewController: MessageSenderDelegate {
             print(error)
         })
 
+        
+        self.dismiss()
     }
 }
