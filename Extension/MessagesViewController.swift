@@ -123,7 +123,8 @@ extension MessagesViewController: MessageSenderDelegate {
         components.queryItems = [NSURLQueryItem(name: "test", value: "testContent")]
 
         let layout = MSMessageTemplateLayout()
-        layout.caption = "cap"
+        layout.caption = "caption goes here"
+        layout.imageTitle = "image title goes here"
         layout.image = image
 
         let message = MSMessage()
