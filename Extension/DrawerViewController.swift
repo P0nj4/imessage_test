@@ -11,13 +11,17 @@ import jot
 import Neon
 import Google_Material_Design_Icons_Swift
 
+protocol MessageSenderDelegate {
+    func composeMessage(image: UIImage)
+}
+
 class DrawerViewController: UIViewController {
     
     let myDrawableSpace = JotViewController()
     let changeMode = UIButton()
-    let pickBackground = UIButton()
-    let background = UIImageView()
-    
+    let sendmessage = UIButton()
+    var delegate: MessageSenderDelegate?
+
     var isWritingModeEnabled: Bool = false {
         didSet {
             if isWritingModeEnabled {
@@ -42,28 +46,37 @@ class DrawerViewController: UIViewController {
 
         let buttonName = self.changeMode
         buttonName.frame = CGRect(x: 0, y: 0, width: 40, height: 40)
-        buttonName.setGMDIcon(GMDType.GMDPublic, forState: .Normal)
+        buttonName.setGMDIcon(GMDType.GMDTextFormat, forState: .Normal)
         buttonName.setTitleColor(UIColor.redColor(), forState: .Normal)
+        buttonName.addTarget(self, action: #selector(DrawerViewController.changeModePressed), forControlEvents: .TouchUpInside)
         self.view.addSubview(buttonName)
-        
-        //let changeModeImage = UIImage(stackedIcons: [FAKFontAwesome.pencilIcon(withSize: 35)], imageSize: CGSize(width: 60, height: 60))
-//        self.changeMode.setImage(changeModeImage, for: .normal)
-        //self.view.addSubview(self.changeMode)
-        //self.changeMode.addTarget(self, action: #selector(changeModePressed), for: .touchUpInside)
-        
-//        let pickBackgroundImage = UIImage(stackedIcons: [FAKFontAwesome.imageIcon(withSize: 35)], imageSize: CGSize(width: 60, height: 60))
-//        self.pickBackground.setImage(pickBackgroundImage, for: .normal)
-        //self.view.addSubview(self.pickBackground)
-        //self.pickBackground.addTarget(self, action: #selector(pickAbackgroundPressed), for: .touchUpInside)
-        
-        //self.view.addSubview(self.background)
+
+
+        self.sendmessage.frame = CGRect(x: 0, y: 0, width: 40, height: 40)
+        self.sendmessage.setGMDIcon(GMDType.GMDSend, forState: .Normal)
+        self.sendmessage.setTitleColor(UIColor.redColor(), forState: .Normal)
+        self.sendmessage.addTarget(self, action: #selector(DrawerViewController.sendMessagePressed), forControlEvents: .TouchUpInside)
+        self.view.addSubview(self.sendmessage)
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         self.myDrawableSpace.view.frame = self.view.bounds
-        //self.pickBackground.anchorInCorner(.bottomLeft, xPad: 10, yPad: 10, width: 60, height: 60)
-        self.changeMode.anchorInCorner(.BottomRight, xPad: 10, yPad: 10, width: 40, height: 40)
-        //self.background.fillSuperview()
+        self.myDrawableSpace.view.setNeedsDisplay()
+        self.changeMode.anchorInCorner(.BottomRight, xPad: 10, yPad: 40, width: 40, height: 40)
+        self.sendmessage.align(.AboveCentered, relativeTo: self.changeMode, padding: 10, width: 40, height: 40)
+    }
+
+    func changeModePressed() {
+        self.isWritingModeEnabled = !self.isWritingModeEnabled
+        if self.isWritingModeEnabled {
+            changeMode.setGMDIcon(GMDType.GMDModeEdit, forState: .Normal)
+        } else {
+            changeMode.setGMDIcon(GMDType.GMDTextFormat, forState: .Normal)
+        }
+    }
+
+    func sendMessagePressed() {
+        self.delegate?.composeMessage(self.myDrawableSpace.renderImage())
     }
 }

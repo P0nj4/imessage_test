@@ -9,14 +9,16 @@
 import UIKit
 import Messages
 
+
 class MessagesViewController: MSMessagesAppViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
      
-        let controller: UIViewController
+        let controller: DrawerViewController
         controller = DrawerViewController()
-        
+        controller.delegate = self
+
         for child in childViewControllers {
             child.willMoveToParentViewController(nil)
             child.view.removeFromSuperview()
@@ -91,4 +93,24 @@ class MessagesViewController: MSMessagesAppViewController {
         // Use this method to finalize any behaviors associated with the change in presentation style.
     }
 
+}
+
+extension MessagesViewController: MessageSenderDelegate {
+    func composeMessage(image: UIImage) {
+
+        let components = NSURLComponents()
+        components.queryItems = [NSURLQueryItem(name: "test", value: "testContent")]
+
+        let layout = MSMessageTemplateLayout()
+        layout.caption = "cap"
+        layout.image = image
+
+        let message = MSMessage()
+        message.URL = components.URL
+        message.layout = layout
+        self.activeConversation?.insertMessage(message, completionHandler: { (error) in
+            print(error)
+        })
+
+    }
 }
