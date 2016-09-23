@@ -9,6 +9,11 @@
 import UIKit
 import Messages
 
+protocol MessageExpandableDelegate {
+    func expandConveration()
+}
+
+
 class MyDrawsViewController: UICollectionViewController {
     
     enum CollectionViewItem {
@@ -17,6 +22,7 @@ class MyDrawsViewController: UICollectionViewController {
     }
 
     private var items: [CollectionViewItem] = []
+    var delegate: MessageExpandableDelegate?
     
     init() {
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
@@ -26,6 +32,7 @@ class MyDrawsViewController: UICollectionViewController {
         
         self.collectionView?.registerClass(StickerCell.self, forCellWithReuseIdentifier: StickerCell.reuseIdentifier)
         self.collectionView?.registerClass(CreateStickerCell.self, forCellWithReuseIdentifier: CreateStickerCell.reuseIdentifier)
+        self.collectionView?.backgroundColor = UIColor.whiteColor()
         self.collectionView?.frame = self.view.bounds
         
         self.items.insert(.create, atIndex: 0)
@@ -70,7 +77,9 @@ class MyDrawsViewController: UICollectionViewController {
         }
     }
     
-   
+    override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        self.delegate?.expandConveration()
+    }
     
     
     func getDocumentsDirectory() -> NSURL {

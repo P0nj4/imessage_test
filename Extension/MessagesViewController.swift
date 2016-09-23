@@ -9,21 +9,23 @@
 import UIKit
 import Messages
 
-
 class MessagesViewController: MSMessagesAppViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-     
-//        let controller: DrawerViewController
-//        controller = DrawerViewController()
-//        controller.delegate = self
+    }
+    
+    func presentViewControllerForPresentationStyle(style: MSMessagesAppPresentationStyle) {
+        let controller: UIViewController
         
-        let controller: MyDrawsViewController
-        controller = MyDrawsViewController()
+        if style == .Compact {
+            // Show a list of previously created ice creams.
+            controller = self.initializeCompactStikerCollectionViewController()
+        }
+        else {
+            controller = self.initializeExpandedDrawableViewController()
+        }
         
-
-
         for child in childViewControllers {
             child.willMoveToParentViewController(nil)
             child.view.removeFromSuperview()
@@ -44,6 +46,19 @@ class MessagesViewController: MSMessagesAppViewController {
         
         controller.didMoveToParentViewController(self)
         
+
+    }
+    
+    func initializeCompactStikerCollectionViewController()  -> UIViewController {
+        let controller = MyDrawsViewController()
+        controller.delegate = self
+        return controller
+    }
+    
+    func initializeExpandedDrawableViewController() -> UIViewController {
+        let controller = DrawerViewController()
+        controller.delegate = self
+        return controller
     }
     
     override func didReceiveMemoryWarning() {
@@ -54,10 +69,8 @@ class MessagesViewController: MSMessagesAppViewController {
     // MARK: - Conversation Handling
     
     override func willBecomeActiveWithConversation(conversation: MSConversation) {
-        // Called when the extension is about to move from the inactive to active state.
-        // This will happen when the extension is about to present UI.
         
-        // Use this method to configure the extension and restore previously stored state.
+        self.presentViewControllerForPresentationStyle(presentationStyle)
     }
     
     override func didResignActiveWithConversation(conversation: MSConversation) {
@@ -86,10 +99,7 @@ class MessagesViewController: MSMessagesAppViewController {
     }
     
     override func willTransitionToPresentationStyle(presentationStyle: MSMessagesAppPresentationStyle) {
-
-        // Called before the extension transitions to a new presentation style.
-    
-        // Use this method to prepare for the change in presentation style.
+        self.presentViewControllerForPresentationStyle(presentationStyle)
     }
     
     override func didTransitionToPresentationStyle(presentationStyle: MSMessagesAppPresentationStyle) {
@@ -98,6 +108,12 @@ class MessagesViewController: MSMessagesAppViewController {
         // Use this method to finalize any behaviors associated with the change in presentation style.
     }
 
+}
+
+extension MessagesViewController: MessageExpandableDelegate {
+    func expandConveration() {
+        self.requestPresentationStyle(.Expanded)
+    }
 }
 
 extension MessagesViewController: MessageSenderDelegate {
